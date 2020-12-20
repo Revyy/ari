@@ -264,6 +264,9 @@ type ExternalMediaOptions struct {
 	// Direction specifies the directionality of the audio stream.  Options include 'both'.  This parameter is optional and if not specified, 'both' will be used.
 	Direction string `json:"direction"`
 
+	// Data specifices the uuid used in audiosocket connections.
+	Data string `json:"data"`
+
 	// Variables defines the set of channel variables which should be bound to this channel upon creation.  This parameter is optional.
 	Variables map[string]string `json:"variables"`
 }
