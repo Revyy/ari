@@ -423,8 +423,22 @@ func (c *Channel) StageExternalMedia(key *ari.Key, opts ari.ExternalMediaOptions
 	// Create the snooping channel's key
 	k := c.client.stamp(ari.NewKey(ari.ChannelKey, opts.ChannelID))
 
+	endpoint := fmt.Sprintf(
+		"%s?channelId=%s&app=%s&external_host=%s&encapsulation=%s&transport=%s&connection_type=%s&format=%s&direction=%s&data=%s",
+		"/channels/externalMedia",
+		opts.ChannelID,
+		opts.App,
+		opts.ExternalHost,
+		opts.Encapsulation,
+		opts.Transport,
+		opts.ConnectionType,
+		opts.Format,
+		opts.Direction,
+		opts.Data,
+	)
+
 	return ari.NewChannelHandle(k, c, func(ch *ari.ChannelHandle) error {
-		return c.client.post("/channels/externalMedia", nil, &opts)
+		return c.client.post(endpoint, nil, map[string]interface{}{"variables": opts.Variables})
 	}), nil
 }
 
